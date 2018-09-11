@@ -291,7 +291,25 @@ p
              <option>5</option>
         </select>
         </div>
-    </div>
+
+        <!--h2><a href="#" id="addScnt">Add Another Input Box</a></h2>
+
+        <div id="p_scents">
+            <p>
+                <label for="p_scnts"><input type="text" id="p_scnt" size="20" name="p_scnt" value="" placeholder="Input Value" /></label>
+            </p>
+        </div-->
+      </div>
+      <div class="row">
+        <div class="form-group col-md-6" id="p_scents">
+        <label for="p_scnts">Symptom</label>
+        <input type="text" class="form-control" id="p_scnt"  name="p_scnt">
+        </div>
+        <div class="col-md-2">
+        <a href="#" id="addScnt"> <h3> + </h3> </a>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
     </div>
     <div id="menu1" class="container tab-pane fade"><br>
       <h3>Prescription</h3>
@@ -339,6 +357,32 @@ $(document).ready(function(){
 </script>
  
  <script src="../static/HealthRecord/js/profile.js"></script>   
+<script
+  src="https://code.jquery.com/jquery-1.4.3.js"
+  integrity="sha256-DjMDo6DOyV68jDzD4Z/HHJlIf6ooawXQGj64zKTZC8c="
+  crossorigin="anonymous"></script>
+
+ <script type="text/javascript">
+   $(function() {
+        var scntDiv = $('#p_scents');
+        var i = $('#p_scents p').size() + 1;
+        
+        $('#addScnt').live('click', function() {
+                $('<p><input type="text" class="form-control" id="p_scnt" name="p_scnt_' + i +'"><a href="#" id="remScnt">Remove</a></p>').appendTo(scntDiv);
+                i++;
+                return false;
+        });
+        
+        $('#remScnt').live('click', function() { 
+                if( i > 1 ) {
+                        $(this).parents('p').remove();
+                        i--;
+                }
+                return false;
+        });
+});
+
+ </script>
  
 </body>
 
