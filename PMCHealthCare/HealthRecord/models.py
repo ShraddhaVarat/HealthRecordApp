@@ -9,16 +9,6 @@ from PMCHealthCare.settings import DBNAME
 
 connect(DBNAME)
 
-class Hospital(Document):
-	hospital_id = StringField(max_length=50)
-	name = StringField(max_length=100)
-	phone_no = StringField(max_length=15)
-	email_id = StringField(max_length=254,required=False)
-	address = StringField(max_length=100)
-	registration_no = StringField(max_length=50)
-	facilties = ListField(StringField(max_length=50))
-	doctors_associated = SortedListField(StringField(max_length=50))
-
 class Doctor(Document):
 	doctor_id = StringField(max_length=50)
 	name = StringField(max_length=100)
@@ -27,6 +17,23 @@ class Doctor(Document):
 	registration_no = StringField(max_length=50)
 	qualtification = ListField(StringField(max_length=50))
 	hospitals_associated = SortedListField(StringField(max_length=50))
+
+class Hospital(Document):
+	hospital_id = StringField(max_length=50)
+	name = StringField(max_length=100)
+	phone_no = StringField(max_length=15)
+	helpline_no = StringField(max_length=15)
+	email = StringField(max_length=254,required=False)
+	address = StringField(max_length=100)
+	pincode = StringField(max_length=6)
+	registration_no = StringField(max_length=50)
+	hospital_type = StringField(max_length=50)
+	#facilties = ListField(StringField(max_length=50))
+	doctors_associated = SortedListField(ReferenceField(Doctor))
+	latitude = DecimalField(max_digits=10, decimal_places=7)
+	longitude = DecimalField(max_digits=10, decimal_places=7)
+
+
 
 class Checkup_Details(EmbeddedDocument):
 	date = DateTimeField(blank=True, null=True)
@@ -77,8 +84,8 @@ class Pharmacist(Document):
 	registration_no = StringField(max_length=50)
 
  
-Sahyadri = Hospital(hospital_id="PMCH001",name="Sahyadri", phone_no="12345",email_id="abc@gmai.com",facilties=["MRI","X-ray"])
-Sahyadri.save()
+#Sahyadri = Hospital(hospital_id="PMCH001",name="Sahyadri", phone_no="12345",email_id="abc@gmai.com",facilties=["MRI","X-ray"])
+#Sahyadri.save()
  
  
 #for e in Employee.objects.all():
