@@ -11,6 +11,7 @@ connect(DBNAME)
 
 class Doctor(Document):
 	doctor_id = StringField(max_length=50)
+	password = StringField(max_length=50)
 	name = StringField(max_length=100)
 	phone_no = StringField(max_length=15)
 	email_id = StringField(max_length=254,required=False)
@@ -20,6 +21,7 @@ class Doctor(Document):
 
 class Hospital(Document):
 	hospital_id = StringField(max_length=50)
+	password = StringField(max_length=50)
 	name = StringField(max_length=100)
 	phone_no = StringField(max_length=15)
 	helpline_no = StringField(max_length=15)
@@ -50,7 +52,6 @@ class Prescription(EmbeddedDocument):
 
 class Medicine(EmbeddedDocument):
 	medicine_name = StringField(max_length=50)
-	dosage = StringField(max_length=10)
 	morning = FloatField(required=False)
 	afternoon = FloatField(required=False)
 	evening = FloatField(required=False)
@@ -59,6 +60,7 @@ class Medicine(EmbeddedDocument):
 
 class Patient(Document):
 	patient_id = StringField(max_length=50)
+	password = StringField(max_length=50)
 	name = StringField(max_length=100)
 	phone_no = StringField(max_length=15)
 	email_id = EmailField(max_length=254,required=False)
@@ -77,6 +79,7 @@ class Patient(Document):
 
 class Pharmacist(Document):
 	pharmacist_id = StringField(max_length=50)
+	password = StringField(max_length=50)
 	name = StringField(max_length=100)
 	phone_no = StringField(max_length=15)
 	email_id = EmailField(max_length=254,required=False)

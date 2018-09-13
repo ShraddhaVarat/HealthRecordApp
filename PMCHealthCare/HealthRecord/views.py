@@ -9,10 +9,16 @@ def home(request):
 def login(request):
 	if request.method == 'POST':
 		id = request.POST.get("lid")
-		#print(id)
 		ps = request.POST.get("lpassword")
-		#print(ps)
-		return HttpResponseRedirect('/login/')
+		if id[3]=="H":
+			return render(request, 'HealthRecord/hprofile.html', {})
+		elif id[3]=="D":
+			return render(request, 'HealthRecord/dprofile.html', {})
+		elif id[3]=="M":
+			return render(request, 'HealthRecord/phprofile.html', {})
+		elif id[3]=="P":
+			return render(request, 'HealthRecord/pprofile.html', {})
+
 	else:
 		return render(request, 'HealthRecord/login.html', {})
 
@@ -49,12 +55,12 @@ def hospital(request):
 		lat = request.POST.get("lat")
 		longitude = request.POST.get("long")
 		#print(name + email + phone + helpline + address + htype+ lat+ longitude)
-		return render(request, 'HealthRecord/profile.html', {})
+		return render(request, 'HealthRecord/login.html', {})
 	else:
 		return render(request, 'HealthRecord/hospitalform.html', {})
 
 def hprofile(request):
-	return render(request, 'HealthRecord/profile.html', {})
+	return render(request, 'HealthRecord/hprofile.html', {})
 
 def patient(request):
 	if request.method == 'POST':
@@ -73,12 +79,12 @@ def patient(request):
 		sname = request.POST.get("sname")
 		#print(name + email + phone1 + phone2 + raddress+ paddress + profession+ dob)
 		#print(aadhar+gender+mstatus+bgrp+sname)
-		return render(request, 'HealthRecord/profile.html', {})
+		return render(request, 'HealthRecord/login.html', {})
 	else:
 		return render(request, 'HealthRecord/patientform.html', {})
 
 def pprofile(request):
-	return render(request, 'HealthRecord/profile.html', {})
+	return render(request, 'HealthRecord/pprofile.html', {})
 
 def doctor(request):
 	if request.method == 'POST':
@@ -90,12 +96,12 @@ def doctor(request):
 		qualification = request.POST.get("qualification ")
 		
 		#print(name + email + phone + helpline + address + htype+ lat+ longitude)
-		return render(request, 'HealthRecord/profile.html', {})
+		return render(request, 'HealthRecord/login.html', {})
 	else:
 		return render(request, 'HealthRecord/doctorform.html', {})
 
 def dprofile(request):
-	return render(request, 'HealthRecord/profile.html', {})
+	return render(request, 'HealthRecord/dprofile.html', {})
 
 def pharmacist(request):
 	if request.method == 'POST':
@@ -107,9 +113,9 @@ def pharmacist(request):
 		#qualification = request.POST.get("qualification ")
 		
 		#print(name + email + phone + helpline + address + htype+ lat+ longitude)
-		return render(request, 'HealthRecord/profile.html', {})
+		return render(request, 'HealthRecord/login.html', {})
 	else:
 		return render(request, 'HealthRecord/pharmacistform.html', {})
 
 def phprofile(request):
-	return render(request, 'HealthRecord/profile.html', {})
+	return render(request, 'HealthRecord/phprofile.html', {})
