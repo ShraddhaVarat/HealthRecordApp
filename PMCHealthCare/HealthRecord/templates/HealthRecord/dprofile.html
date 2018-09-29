@@ -229,7 +229,7 @@ p
     </ul>
     
     <ul class="menu-bar">
-        <li><a href="#" class="menu-button">Menu</a></li>
+        <li><a href="" class="menu-button">Menu</a></li>
         <li><a href="#">Home</a></li>
         <li><a href="#">Profile</a></li>
         <li><a href="#">History</a></li>
@@ -240,13 +240,19 @@ p
 <h4 style="right: 0;color: white;margin-right: 0;margin-left: 80%;">Welcome User!</h4>
 </div>
 <br>
-<form class="form-inline md-form mr-auto mb-4" style="margin-left: 28%;">
+<!--p id="demo"></p-->
+<form method="post" action="/dprofile/">
+{% csrf_token %}
+<div class="form-inline md-form mr-auto mb-4" style="margin-left: 28%;">
     <center>
-    <input class="form-control mr-sm-2" type="text" placeholder="Search  Patient Id" aria-label="Search">
-    <button class="btn btn-rounded btn-sm" type="submit" style="background: #222;">Search</button>
+    <input class="form-control mr-sm-2" type="text" placeholder="Search  Patient Id" aria-label="Search" name="search_patient">
+    <input class="btn btn-rounded btn-sm btn-success" type="submit" name="search" value="Search" style=background: black;">
     </center>
-</form>
+</div>
 
+{% if pdetails %}
+<h5 style="margin-left: 10%;">Hi, {{pdetails.name}} </h5>
+<input type="hidden" value="{{pdetails.patient_id}}" name="pid">
 <div id="top"> 
 <div class="container mt-3"  style="border: 1px solid grey;" >
   
@@ -262,7 +268,7 @@ p
   <div class="tab-content">
     <div id="home" class="tab-pane fade in active"><br>
       <h3>CheckUp Details</h3>
-    <form method="post">
+    
       <div class="row">
         <div class="form-group col-md-3">
         <label for="sel1">Select Hospital:</label>
@@ -298,13 +304,13 @@ p
       </div>
       </div>
       <center>
-      <button class="btn btn-md btn-success">Add</button></center>
-    </form>  
+      <input type="submit" class="btn btn-md btn-success" name="checkup" value="Add"></center>
+     
     </div>
     
     <div id="menu1" class="tab-pane fade"><br>
       <h3>Prescription</h3>
-      <form method="post">
+      
         <table id="myTable" class=" table order-list table-striped">
         <thead>
           <tr>
@@ -321,23 +327,23 @@ p
           <tr>
             <div>
             <td>
-                <input type="text" name="name" class="form-control" />
+                <input type="text" name="name0" class="form-control" />
             </td></div>
             <div>
             <td>
-                <input type="text" name="mail"  class="form-control"/>
+                <input type="text" name="morning0"  class="form-control"/>
             </td></div>
             <div>
             <td>
-                <input type="text" name="phone"  class="form-control"/>
+                <input type="text" name="afternoon0"  class="form-control"/>
             </td></div>
             <div>
             <td>
-                <input type="text" name="phone"  class="form-control"/>
+                <input type="text" name="evening0"  class="form-control"/>
             </td></div>
             <div>
             <td>
-                <input type="number" name="phone"  class="form-control"/>
+                <input type="number" name="days0"  class="form-control"/>
             </td></div>
             <div>
             <td><a class="deleteRow"></a>
@@ -352,18 +358,19 @@ p
                 <input type="button" class="btn btn-md btn-block btn-success" id="addrow" value="Add Row" /></center>
             </td>
             <td>
-            <button class="btn btn-md btn-block btn-success">Add</button></td><td></td>
+            <input type="hidden" name="counter" id="counter">
+            <input class="btn btn-md btn-block btn-success" name="prescription1" type="submit" value="Add"></td><td></td>
           </tr>
           <tr>
           </tr>
         </tfoot>
       </table>
-    </form>
+      
   </div>
 
     <div id="menu2" class="tab-pane fade"><br>
       <h3>Reports</h3>
-      <form method="post" action="">
+      
         <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
@@ -373,11 +380,14 @@ p
           <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
         </div>
       </div>
-      </form>
+     
     </div>
   </div>
 </div>
 </div>
+{% endif %}
+</form>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 {% load static %}
@@ -428,7 +438,8 @@ $(document).ready(function(){
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
-    var counter = 0;
+    var counter = 1;
+    document.getElementById("counter").value = counter;
 
     $("#addrow").on("click", function () {
         var newRow = $("<tr>");
@@ -442,16 +453,23 @@ $(document).ready(function(){
         cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
         newRow.append(cols);
         $("table.order-list").append(newRow);
-        counter++;
+        counter+=1;
+        //document.getElementById("demo").innerHTML = counter;
+        document.getElementById("counter").value = counter;
     });
 
 
 
     $("table.order-list").on("click", ".ibtnDel", function (event) {
         $(this).closest("tr").remove();       
-        counter -= 1
+        counter -= 1;
+        //document.getElementById("demo").innerHTML = counter;
+        document.getElementById("counter").value = counter;
     });
 
+    //$("#counter").val(counter);
+    
+    //document.getElementById("demo").innerHTML = counter;
 
 });
 

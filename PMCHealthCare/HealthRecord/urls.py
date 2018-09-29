@@ -16,5 +16,5 @@ urlpatterns = [
 	path('dprofile/', views.dprofile, name='doctorp'),
 	path('pharmacist/', views.pharmacist, name='pharmacist'),
 	path('phprofile/', views.phprofile, name='pharmacistp'),
-	
+
 ]
