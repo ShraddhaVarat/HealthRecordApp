@@ -51,9 +51,25 @@ def login(request):
 				return HttpResponseRedirect('/login/')
 		elif id[3]=="P":
 			collection = db.patient
-			c =collection.find_one({"patient_id": id})
+			c = collection.find_one({"patient_id": id})
+			
 			if c["password"]==ps:	
-				return render(request, 'HealthRecord/pprofile.html', {})
+				for p in c["prescription"]:
+					print(p["prescription_id"])
+					cv = p["prescription_id"]
+					#print(p["medicine_name"])
+					#m = Medicine.objects(medicine__prescription_id=cv)
+					collection = db.prescription
+
+					c1 = collection.find_one({"prescription_id":cv})
+					#print(c1)
+					for m in c1["medicine"]:
+						print(m["medicine_name"])
+					#for m1 in m["medicines"]:
+					#	print(m1["medicine_name"])
+					#for m in p["medicines"]:
+						
+				return render(request, 'HealthRecord/pprofile.html', {'patient':c})
 			else:
 				messages.success(request, "Invalid LoginId or Password")
 				return HttpResponseRedirect('/login/')
@@ -352,7 +368,7 @@ def dprofile(request):
 	elif 'search' in request.POST:
 		id = request.POST.get("search_patient")
 		collection = db.patient
-		c =collection.find_one({"patient_id": id })
+		c = collection.find_one({"patient_id": id })
 		if c:
 			return render(request, 'HealthRecord/dprofile.html', {'pdetails':c})
 	else:

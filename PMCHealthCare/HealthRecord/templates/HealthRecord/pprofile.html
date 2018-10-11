@@ -222,14 +222,55 @@ p
     </ul>
 </div>
 <div style="width: 100%;top:0;background: #222;height:5em; "><br>
-<h4 style="right: 0;color: white;margin-right: 0;margin-left: 80%;">Welcome User!</h4>
+<a href="/login/" style="right: 0;color: white;margin-right: 0;margin-left: 80%;font-size: 20px;">
+LOGOUT</a>
 </div>
-<div id="top"> 
+<br>
+<h3 align="center">Your Prescriptions</h3>
+
+{% if patient.prescription %}
+{% for pr in patient.prescription %}
+
+<div class="card" style="width: 70%; margin-left: 15%;margin-bottom: 2%;">
+  <h5 class="card-header">Prescription id: {{pr.prescription_id}}</h5>
+  <div class="card-body">
+    <h5 class="card-title">Medicines</h5>
+    <table class="table table-striped card-text">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Morning</th>
+      <th scope="col">Afternoon</th>
+      <th scope="col">Evening</th>
+      <th scope="col">Days</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    {% for m in pr.medicine %}
+    
+    <tr>
+      <td>{{m.medicine_name}}</td>
+      <td>{{m.morning}}</td>
+      <td>{{m.afternoon}}</td>
+      <td>{{m.evening}}</td>
+      <td>{{m.no_of_days}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+    
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+
+<!--div id="top"> 
 <div class="container mt-3"  style="border: 1px solid grey;" >
   
   <br>
   <!-- Nav tabs -->
-  <ul class="nav nav-tabs">
+  <!--ul class="nav nav-tabs">
     <li class="nav-item">
       <a class="nav-link active" href="#home">CheckUp Details</a>
     </li>
@@ -242,7 +283,7 @@ p
   </ul>
 
   <!-- Tab panes -->
-  <div class="tab-content">
+  <!--div class="tab-content">
     <div id="home" class="container tab-pane active"><br>
       <h3>CheckUp Details</h3>
       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
@@ -283,7 +324,9 @@ p
     </div>
   </div>
 </div>
-</div>
+</div-->
+
+
 <script>
 $(document).ready(function(){
     $(".nav-tabs a").click(function(){
